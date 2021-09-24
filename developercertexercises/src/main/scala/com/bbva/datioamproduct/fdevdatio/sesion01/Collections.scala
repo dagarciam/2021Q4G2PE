@@ -87,4 +87,7 @@ object Collections {
    *  por ejemplo f(10.5, "mxn", "yen") -> 57.43
    */
 
+  // Nuevo cambio
+  // Segundo cambio
+
 }
