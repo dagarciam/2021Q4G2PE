@@ -10,8 +10,8 @@ import org.apache.spark.sql.DataFrame
 class PhonesTransformer(config: Config) extends Transformer[DataReader, DataFrame] {
   override def transform(dataReader: DataReader): DataFrame = {
     dataReader get FDevPhones.key filter (
-      CutoffDate.filter && Brand.filter && CountryCode.filter
-    )
+      CutoffDate.filter && Brand.filter && CountryCode.filter //Regla 1
+      )
   }
 
 }

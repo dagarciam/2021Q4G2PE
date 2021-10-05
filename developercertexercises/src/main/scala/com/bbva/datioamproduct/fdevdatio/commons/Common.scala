@@ -3,6 +3,8 @@ package com.bbva.datioamproduct.fdevdatio.commons
 import scala.util.matching.Regex
 
 object Common {
+
+
   //Para MX
   val AZUL: String = "azul"
 
@@ -15,5 +17,8 @@ object Common {
   case object JoinTypes {
     val inner: String = "inner"
   }
+
+  val Yes = "Yes"
+  val No = "No"
 
 }

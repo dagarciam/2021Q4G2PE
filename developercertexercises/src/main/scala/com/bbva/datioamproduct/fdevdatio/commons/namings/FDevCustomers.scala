@@ -6,7 +6,7 @@ import org.apache.spark.sql.functions.length
 object FDevCustomers {
 
   val key: String = "t_fdev_customers"
-  val filteredKey:String = "t_fdev_customers_filtered"
+  val filteredKey: String = "t_fdev_customers_filtered"
 
   case object CustomerId extends Field {
     override val name: String = "customer_id"
@@ -26,7 +26,7 @@ object FDevCustomers {
 
   case object CreditCardNumber extends Field {
     override val name: String = "credit_card_number"
-    override lazy val column: Column = length(column) < 17
+    override val filter: Column = length(column) < 17
   }
 
   case object CreditProviderName extends Field {

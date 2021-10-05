@@ -2,7 +2,7 @@ package com.bbva.datioamproduct.fdevdatio.commons
 
 object ConfigConstants {
 
-  val RootConfig: String = "2021q4g2"
+  val RootConfig: String = "appJob"
   val InputConfig: String = s"$RootConfig.input"
   val SongConfig: String = s"$InputConfig.song.path"
   val PokeConfig: String = s"$InputConfig.pokemons.path"
@@ -15,6 +15,7 @@ object ConfigConstants {
   val DevAgeConfig: String = s"$DevConfig.age"
   val DevSpecializationConfig: String = s"$DevConfig.specialization"
 
-
+  val ParamsConfig: String = s"$RootConfig.params"
+  val JwkDateConfig: String = s"$ParamsConfig.jwk_date"
 
 }

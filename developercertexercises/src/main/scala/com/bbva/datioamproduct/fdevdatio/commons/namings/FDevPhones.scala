@@ -1,10 +1,12 @@
 package com.bbva.datioamproduct.fdevdatio.commons.namings
 
+import com.bbva.datioamproduct.fdevdatio.commons.namings.FDevPhones.Taxes.{column, name}
 import org.apache.spark.sql.Column
+import org.apache.spark.sql.types.DecimalType
 
 object FDevPhones {
   val key: String = "t_fdev_phones"
-  val filteredKey:String = "t_fdev_phones_filtered"
+  val filteredKey: String = "t_fdev_phones_filtered"
 
   case object Brand extends Field {
     override val name = "brand"
@@ -63,6 +65,7 @@ object FDevPhones {
 
   case object DiscountAmount extends Field {
     override val name = "discount_amount"
+    def apply(): Column = column.cast(DecimalType(9, 2)).alias(name)
   }
 
   case object Prime extends Field {
@@ -71,6 +74,8 @@ object FDevPhones {
 
   case object Taxes extends Field {
     override val name = "taxes"
+
+    def apply(): Column = column.cast(DecimalType(9, 2)).alias(name)
   }
 
   case object PriceProduct extends Field {
