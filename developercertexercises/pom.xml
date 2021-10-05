@@ -17,6 +17,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.bbva.datio.datahub-pe</groupId>
+            <artifactId>datahub-pe-utils</artifactId>
+            <version>${datahub.pe-utils.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.binary.version}</artifactId>
             <scope>provided</scope>
@@ -36,7 +42,7 @@
         <dependency>
             <groupId>com.datio.kirby</groupId>
             <artifactId>kirby-ingestion</artifactId>
-            <version>2.10.0</version>
+            <version>${kirby.version}</version>
             <scope>compile</scope>
 
             <exclusions>
@@ -53,11 +59,6 @@
                     <artifactId>jackson-databind</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.datio.fds</groupId>
-            <artifactId>amlib</artifactId>
-            <version>${amlib.version}</version>
         </dependency>
 
         <!-- Test -->

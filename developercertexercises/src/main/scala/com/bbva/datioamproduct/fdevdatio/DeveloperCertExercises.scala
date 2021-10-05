@@ -1,6 +1,7 @@
 package com.bbva.datioamproduct.fdevdatio
 
-import com.bbva.datioamproduct.fdevdatio.sesion01.Car
+import com.bbva.datioamproduct.fdevdatio.commons.ConfigConstants._
+import com.bbva.datioamproduct.fdevdatio.engine.Engine
 import com.datio.spark.InitSpark
 import com.datio.spark.metric.model.BusinessInformation
 import com.typesafe.config.Config
@@ -22,18 +23,18 @@ import scala.util.{Failure, Success, Try}
 protected trait DeveloperCertExercisesTrait extends InitSpark {
   this: InitSpark =>
   /**
-   * @param sparkS Initialized SparkSession
+   * @param spark  Initialized SparkSession
    * @param config Config retrieved from args
    */
-  override def runProcess(sparkS: SparkSession, config: Config): Int = {
-
+  override def runProcess(spark: SparkSession, config: Config): Int = {
     Try {
-
-      val devName: String = config getString "2021q4g2.dev.name"
-      val devAge: Int = config.getInt("2021q4g2.dev.age")
-      val devRol: String = config.getString("2021q4g2.dev.specialization")
-
+      val devName: String = config getString DevNameConfig
+      val devAge: Int = config.getInt(DevAgeConfig)
+      val devRol: String = config.getString(DevSpecializationConfig)
       logger info s"Desarrollador: $devName\nEdad: $devAge\nEspecialidad: ${devRol toLowerCase}"
+
+      val engine: Engine = new Engine(spark, config)
+      engine()
 
     } match {
       case Success(value) => 0
@@ -42,7 +43,6 @@ protected trait DeveloperCertExercisesTrait extends InitSpark {
         -1
       }
     }
-
   }
 
   override def defineBusinessInfo(config: Config): BusinessInformation =
