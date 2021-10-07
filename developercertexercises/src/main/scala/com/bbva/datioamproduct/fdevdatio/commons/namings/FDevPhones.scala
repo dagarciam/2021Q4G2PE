@@ -2,7 +2,7 @@ package com.bbva.datioamproduct.fdevdatio.commons.namings
 
 import com.bbva.datioamproduct.fdevdatio.commons.namings.FDevPhones.Taxes.{column, name}
 import org.apache.spark.sql.Column
-import org.apache.spark.sql.types.DecimalType
+import org.apache.spark.sql.types.{DataType, DateType, DecimalType, IntegerType}
 
 object FDevPhones {
   val key: String = "t_fdev_phones"
@@ -57,6 +57,7 @@ object FDevPhones {
 
   case object StockNumber extends Field {
     override val name = "stock_number"
+    override val dataType: DataType = IntegerType
   }
 
   case object SoldProductNumber extends Field {
@@ -65,7 +66,9 @@ object FDevPhones {
 
   case object DiscountAmount extends Field {
     override val name = "discount_amount"
-    def apply(): Column = column.cast(DecimalType(9, 2)).alias(name)
+    override val dataType: DataType = DecimalType(9,2)
+
+    def apply(): Column = column.cast(dataType).alias(name)
   }
 
   case object Prime extends Field {
@@ -74,12 +77,14 @@ object FDevPhones {
 
   case object Taxes extends Field {
     override val name = "taxes"
+    override val dataType: DataType = DecimalType(9,2)
 
-    def apply(): Column = column.cast(DecimalType(9, 2)).alias(name)
+    def apply(): Column = column.cast(dataType).alias(name)
   }
 
   case object PriceProduct extends Field {
     override val name = "price_product"
+    override val dataType: DataType = DecimalType(9,2)
   }
 
   case object DeliveryId extends Field {
@@ -92,6 +97,7 @@ object FDevPhones {
 
   case object CutoffDate extends Field {
     override val name = "cutoff_date"
+    override val dataType: DataType = DateType
 
     override val filter: Column = {
       column.between("2020-03-01", "2020-03-04")

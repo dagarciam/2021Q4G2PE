@@ -14,54 +14,32 @@ import org.apache.spark.sql.DataFrame
 class CustomerPhonesTransformer(config: Config) extends Transformer[DataReader, DataFrame] {
 
   override def transform(dataReader: DataReader): DataFrame = {
-    val customerPhonesDF: DataFrame = join(
-      dataReader.get(FDevCustomers.filteredKey),
-      dataReader.get(FDevPhones.filteredKey)
-    )
+    val customerPhonesDF: DataFrame =
+      dataReader.get(FDevCustomers.filteredKey)
+        .join(
+          dataReader.get(FDevPhones.filteredKey), Seq(CustomerId.name, DeliveryId.name), JoinTypes.inner
+        )
+
     val jwkDate: String = config.getString(JwkDateConfig)
 
-    fitToSchema(
-      customerPhonesDF
-        .withColumn(CustomerVip.name, CustomerVip()) //Regla 4
-        .withColumn(ExtraDiscount.name, ExtraDiscount()) //Regla 5
-        .withColumn(FinalPrice.name, FinalPrice()) //Regla 6
-        .withColumn(Age.name, Age()) //Regla 7
-        .withColumn(BrandsTop.name, BrandsTop()) //Regla 8
-        .filter(BrandsTop.filter) //Regla 8
-        .withColumn(JwkDate.name, JwkDate(jwkDate)) //Regla 9
-        .na.fill(No, Seq(Nfc.name)) // Regla 10
-        .withColumn(Taxes.name, Taxes()) // Cast por validación de esquema
-        .withColumn(DiscountAmount.name, DiscountAmount()) // Cast por validación de esquema
-    )
+    //fitToSchema(
+    customerPhonesDF
+      .withColumn(CustomerVip.name, CustomerVip()) //Regla 4
+      .withColumn(ExtraDiscount.name, ExtraDiscount()) //Regla 5
+      .withColumn(FinalPrice.name, FinalPrice()) //Regla 6
+      .withColumn(Age.name, Age()) //Regla 7
+      .withColumn(BrandsTop.name, BrandsTop()) //Regla 8
+      .filter(BrandsTop.filter) //Regla 8
+      .withColumn(JwkDate.name, JwkDate(jwkDate)) //Regla 9
+      .na.fill(No, Seq(Nfc.name)) // Regla 10
+      .withColumn(Taxes.name, Taxes()) // Cast por validación de esquema
+      .withColumn(DiscountAmount.name, DiscountAmount()) // Cast por validación de esquema
+    //)
 
   }
 
-  private def join(customersDF: DataFrame, phonesDF: DataFrame): DataFrame = {
-    customersDF
-      .join(phonesDF, Seq(CustomerId.name, DeliveryId.name), JoinTypes.inner) //Regla 3
-  }
-
-  private def fitToSchema(df: DataFrame): DataFrame = {
-    df.select(
-      CityName.column,
-      StreetName.column,
-      CreditCardNumber.column,
-      LastName.column,
-      FirstName.column,
-      Age.column,
-      Brand.column,
-      Model.column,
-      Nfc.column,
-      CountryCode.column,
-      Prime.column,
-      CustomerVip.column,
-      Taxes.column,
-      PriceProduct.column,
-      DiscountAmount.column,
-      ExtraDiscount.column,
-      FinalPrice.column,
-      BrandsTop.column,
-      JwkDate.column
-    )
-  }
+  private def fitToSchema(df: DataFrame): DataFrame = df.select(
+    CityName.column, StreetName.column, CreditCardNumber.column, LastName.column, FirstName.column, Age.column, Brand.column, Model.column,
+    Nfc.column, CountryCode.column, Prime.column, CustomerVip.column, Taxes.column, PriceProduct.column, DiscountAmount.column, ExtraDiscount.column,
+    FinalPrice.column, BrandsTop.column, JwkDate.column)
 }

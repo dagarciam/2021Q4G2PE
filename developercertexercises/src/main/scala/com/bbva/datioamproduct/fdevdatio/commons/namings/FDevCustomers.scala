@@ -2,6 +2,7 @@ package com.bbva.datioamproduct.fdevdatio.commons.namings
 
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions.length
+import org.apache.spark.sql.types.{DataType, DateType}
 
 object FDevCustomers {
 
@@ -55,6 +56,7 @@ object FDevCustomers {
 
   case object BirthDate extends Field {
     override val name: String = "birth_date"
+    override val dataType: DataType = DateType
   }
 
   case object GlDate extends Field {
