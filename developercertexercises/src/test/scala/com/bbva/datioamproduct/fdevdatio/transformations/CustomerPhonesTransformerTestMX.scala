@@ -19,9 +19,9 @@ class CustomerPhonesTransformerTestMX extends TestUtils {
 
     outputDF
       .filter(CustomerVip.column.isin("Yes", "No"))
-      .count() should be(
+      .count() should be {
       outputDF.count()
-    )
+    }
 
   }
 

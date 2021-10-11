@@ -6,11 +6,12 @@ import org.junit.runner.RunWith
 
 @RunWith(classOf[Cucumber])
 @CucumberOptions(
-  features = Array
-  (
-  "src/test/resources/features/amazonReport.feature"
+  features = Array(
+    "src/test/resources/features/amazonReport.feature"
   ),
-  glue = Array("com.datio.spark.bdt.steps", "com.bbva.datioamproduct.fdev.steps"),
+  glue = Array(
+    "com.datio.spark.bdt.steps"
+  ),
   plugin = Array(
     "pretty"
   ),
