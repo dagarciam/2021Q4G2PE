@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.datio</groupId>
         <artifactId>spark-pom-parent</artifactId>
-        <version>0.7.1-2.2.1</version>
+        <version>0.7.5-2.2.1</version>
     </parent>
 
     <groupId>com.bbva.datioamproduct</groupId>
@@ -18,9 +18,9 @@
 
     <properties>
         <avro.version>1.7.7</avro.version>
-        <datio-spark-utils.version>2.0.5-2.2.1</datio-spark-utils.version>
-        <datio-spark-tests.version>1.0.1-2.2.1</datio-spark-tests.version>
-        <datio-spark-bdt.version>1.0.0-2.2.1</datio-spark-bdt.version>
+        <datio-spark-utils.version>${spark.utils.version}-${spark.version}</datio-spark-utils.version>
+        <datio-spark-tests.version>${spark.tests.version}-${spark.version}</datio-spark-tests.version>
+        <datio-spark-bdt.version>${spark.bdt.version}-${spark.version}</datio-spark-bdt.version>
         <slf4j.version>1.7.6</slf4j.version>
         <kirby.version>2.12.6</kirby.version>
         <datahub.pe-utils.version>0.3.8</datahub.pe-utils.version>
