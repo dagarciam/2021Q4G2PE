@@ -8,6 +8,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.{FlatSpec, Matchers}
+import com.bbva.datioamproduct.fdevdatio.dummies.Dummies.PhonesTransformerDummies._
 
 class PhonesTransformerTest extends FlatSpec with Matchers with ContextProvider {
   val config: Config = ConfigFactory.defaultApplication()
@@ -15,21 +16,7 @@ class PhonesTransformerTest extends FlatSpec with Matchers with ContextProvider 
   "transform method" should "return a DF without values Dell, Coolpad, Chea, BQ, BLU in brand column" in {
     val dataReader = new DataReader()
 
-    val data: Seq[Row] = Seq(
-      Row("MX", "Acer", "2020-03-10"),
-      Row("PE", "Chea", "2020-03-01"),
-      Row("CZ", "Amazon", "2020-03-01"),
-      Row("MX", "Dell", "2020-03-01"),
-      Row("MX", "BQ", "2020-03-01"),
-      Row("MX", "Coolpad", "2020-03-01"),
-      Row("BR", "BLU", "2020-03-01"),
-      Row("BR", "Allview", "2020-03-02")
-    )
-    val schema: StructType = StructType(List(
-      StructField(CountryCode.name, CountryCode.dataType),
-      StructField(Brand.name, Brand.dataType),
-      StructField(CutoffDate.name, StringType)
-    ))
+
     val inputDF: DataFrame = spark.createDataFrame(sparkContext.parallelize(data), schema)
       .withColumn(CutoffDate.name, CutoffDate.column.cast(CutoffDate.dataType))
     dataReader.add(FDevPhones.key, inputDF)

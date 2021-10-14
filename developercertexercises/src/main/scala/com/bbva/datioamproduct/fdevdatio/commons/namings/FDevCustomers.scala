@@ -61,6 +61,7 @@ object FDevCustomers {
 
   case object GlDate extends Field {
     override val name: String = "gl_date"
+    override val dataType: DataType = DateType
     override val filter: Column = column.between("2020-03-01", "2020-03-04")
   }
 

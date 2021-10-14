@@ -22,7 +22,7 @@ class CustomerPhonesTransformer(config: Config) extends Transformer[DataReader, 
 
     val jwkDate: String = config.getString(JwkDateConfig)
 
-    fitToSchema(
+    //fitToSchema(
       customerPhonesDF
         .withColumn(CustomerVip.name, CustomerVip()) //Regla 4
         .withColumn(ExtraDiscount.name, ExtraDiscount()) //Regla 5
@@ -34,7 +34,7 @@ class CustomerPhonesTransformer(config: Config) extends Transformer[DataReader, 
         .na.fill(No, Seq(Nfc.name)) // Regla 10
         .withColumn(Taxes.name, Taxes()) // Cast por validación de esquema
         .withColumn(DiscountAmount.name, DiscountAmount()) // Cast por validación de esquema
-    )
+    //)
 
   }
 

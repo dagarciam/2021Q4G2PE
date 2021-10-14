@@ -13,4 +13,15 @@ Feature: Feature for AmazonReport
       | parquet |
     When I read outputDF as dataframe
     Then outputDF dataframe has exactly 1928 records
-
+    And outputDF has this counts for the next filters:
+      | filter expression | comparison | count |
+      | brand="Amazon"    | exactly    | 11    |
+      | country_code="PE" | less than  | 205   |
+    #Then the outputDF has the next values for the column brand:
+    #  | value  |
+    #  | Acer   |
+    #  | Amazon |
+    #Then the outputDF doesn't have the next values for the column brand:
+    #  | value   |
+    #  | Coolpad |
+    #  | Dell    |
