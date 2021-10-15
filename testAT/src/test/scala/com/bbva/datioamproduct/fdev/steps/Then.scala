@@ -8,7 +8,8 @@ import cucumber.api.DataTable
 import cucumber.api.scala.{EN, ScalaDsl}
 import org.apache.spark.sql.DataFrame
 import org.scalatest.Matchers
-
+import org.apache.spark.sql.functions.col
+import com.datio.spark.bdt.utils.Constants._
 import scala.collection.JavaConverters._
 
 class Then extends Matchers with ScalaDsl with EN with LazyLogging {
@@ -32,6 +33,21 @@ class Then extends Matchers with ScalaDsl with EN with LazyLogging {
           }
         }
       })
+
+    }
+  }
+
+  Then("""^the (\S+) dataframe (have|do not have) the next values for the column (\S+):$""") {
+    (dfName: String, comparison: String, columnName: String, dataTable: DataTable) => {
+      val values: List[String] = dataTable.asMaps(classOf[String], classOf[String]).asScala.toList
+        .map(_.get(VALUES))
+
+      val count: Long = Common.dfMap(dfName).filter(col(columnName).isin(values: _*)).count()
+
+      comparison match {
+        case HAVE => count should be > 0L
+        case DO_NOT_HAVE => count should be(0)
+      }
 
     }
   }

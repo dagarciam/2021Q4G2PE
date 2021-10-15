@@ -17,11 +17,11 @@ Feature: Feature for AmazonReport
       | filter expression | comparison | count |
       | brand="Amazon"    | exactly    | 11    |
       | country_code="PE" | less than  | 205   |
-    #Then the outputDF has the next values for the column brand:
-    #  | value  |
-    #  | Acer   |
-    #  | Amazon |
-    #Then the outputDF doesn't have the next values for the column brand:
-    #  | value   |
-    #  | Coolpad |
-    #  | Dell    |
+    Then the outputDF dataframe have the next values for the column brand:
+      | values |
+      | Acer   |
+      | Amazon |
+    Then the outputDF dataframe do not have the next values for the column brand:
+      | values  |
+      | Coolpad |
+      | Dell    |
